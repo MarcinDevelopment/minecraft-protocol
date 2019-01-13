@@ -6,7 +6,7 @@ import org.junit.Test
 import ru.enke.minecraft.protocol.packet.data.game.GameMode
 import ru.enke.minecraft.protocol.packet.data.game.GameMode.CREATIVE
 import ru.enke.minecraft.protocol.packet.data.game.Position
-import ru.enke.minecraft.protocol.packet.data.game.Slot
+import ru.enke.minecraft.protocol.packet.data.game.ItemStack
 
 class PacketTest {
 
@@ -46,7 +46,7 @@ class PacketTest {
 
     @Test
     fun testSlot() {
-        val slot = Slot(1, 64, 0)
+        val slot = ItemStack(1, 64, 0)
 
         buffer.writeSlot(slot)
         assertEquals(slot, buffer.readSlot())

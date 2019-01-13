@@ -6,10 +6,6 @@ import ru.enke.minecraft.protocol.packet.data.game.EntityMetadataType.*
 import ru.enke.minecraft.protocol.packet.data.message.Message
 import java.util.*
 import kotlin.collections.ArrayList
-import java.lang.reflect.Array.setFloat
-import java.lang.reflect.Array.setShort
-import java.lang.reflect.Array.setByte
-import kotlin.experimental.and
 
 
 interface PacketMessage
@@ -158,19 +154,19 @@ fun ByteBuf.readPosition() : Position {
     return Position(x, y, z)
 }
 
-fun ByteBuf.writeSlot(slot: Slot?) {
-    if(slot == null) {
+fun ByteBuf.writeSlot(itemStack: ItemStack?) {
+    if(itemStack == null) {
         writeShort(-1)
         return
     }
 
-    writeShort(slot.id)
-    writeByte(slot.quantity)
-    writeShort(slot.metadata)
-    writeBytes(slot.state ?: return)
+    writeShort(itemStack.id)
+    writeByte(itemStack.quantity)
+    writeShort(itemStack.metadata)
+    writeBytes(itemStack.state ?: return)
 }
 
-fun ByteBuf.readSlot() : Slot? {
+fun ByteBuf.readSlot() : ItemStack? {
     val id = readShort().toInt()
 
     if(id == -1) {
@@ -187,7 +183,7 @@ fun ByteBuf.readSlot() : Slot? {
         readBytes(state)
     }
 
-    return Slot(id, quantity, metadata, state)
+    return ItemStack(id, quantity, metadata, state)
 }
 
 fun ByteBuf.writeUUID(uuid: UUID) {
@@ -227,7 +223,7 @@ fun ByteBuf.writeEntityMetadata(metadata: List<EntityMetadata>) {
             FLOAT -> writeFloat(value as Float)
             STRING -> writeString(value as String)
             CHAT -> writeString((value as Message).toJson())
-            SLOT -> writeSlot(value as Slot)
+            SLOT -> writeSlot(value as ItemStack)
             BOOLEAN -> writeBoolean(value as Boolean)
             ROTATION -> {}
             POSITION -> readPosition()

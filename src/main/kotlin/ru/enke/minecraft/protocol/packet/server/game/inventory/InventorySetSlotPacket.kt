@@ -3,7 +3,7 @@ package ru.enke.minecraft.protocol.packet.server.game.inventory
 import io.netty.buffer.ByteBuf
 import ru.enke.minecraft.protocol.packet.Packet
 import ru.enke.minecraft.protocol.packet.PacketMessage
-import ru.enke.minecraft.protocol.packet.data.game.Slot
+import ru.enke.minecraft.protocol.packet.data.game.ItemStack
 import ru.enke.minecraft.protocol.packet.readSlot
 import ru.enke.minecraft.protocol.packet.writeSlot
 
@@ -12,7 +12,7 @@ object InventorySetSlotPacket : Packet<InventorySetSlot> {
     override fun write(message: InventorySetSlot, buffer: ByteBuf) {
         buffer.writeByte(message.windowId)
         buffer.writeShort(message.slotIndex)
-        buffer.writeSlot(message.slot)
+        buffer.writeSlot(message.itemStack)
     }
 
     override fun read(buffer: ByteBuf): InventorySetSlot {
@@ -25,4 +25,4 @@ object InventorySetSlotPacket : Packet<InventorySetSlot> {
 
 }
 
-data class InventorySetSlot(val windowId: Int, val slotIndex: Int, val slot: Slot?) : PacketMessage
+data class InventorySetSlot(val windowId: Int, val slotIndex: Int, val itemStack: ItemStack?) : PacketMessage

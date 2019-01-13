@@ -3,7 +3,7 @@ package ru.enke.minecraft.protocol.packet.client.game.inventory
 import io.netty.buffer.ByteBuf
 import ru.enke.minecraft.protocol.packet.Packet
 import ru.enke.minecraft.protocol.packet.PacketMessage
-import ru.enke.minecraft.protocol.packet.data.game.Slot
+import ru.enke.minecraft.protocol.packet.data.game.ItemStack
 import ru.enke.minecraft.protocol.packet.readSlot
 import ru.enke.minecraft.protocol.packet.writeSlot
 
@@ -11,7 +11,7 @@ object CreativeInventoryActionPacket : Packet<CreativeInventoryAction> {
 
     override fun write(message: CreativeInventoryAction, buffer: ByteBuf) {
         buffer.writeShort(message.slotIndex)
-        buffer.writeSlot(message.slot)
+        buffer.writeSlot(message.itemStack)
     }
 
     override fun read(buffer: ByteBuf): CreativeInventoryAction {
@@ -23,4 +23,4 @@ object CreativeInventoryActionPacket : Packet<CreativeInventoryAction> {
 
 }
 
-data class CreativeInventoryAction(val slotIndex: Int, val slot: Slot?) : PacketMessage
+data class CreativeInventoryAction(val slotIndex: Int, val itemStack: ItemStack?) : PacketMessage

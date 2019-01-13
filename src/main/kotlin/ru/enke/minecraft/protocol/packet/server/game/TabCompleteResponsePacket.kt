@@ -18,7 +18,7 @@ object TabCompleteResponsePacket : Packet<TabCompleteResponse> {
     override fun read(buffer: ByteBuf): TabCompleteResponse {
         val matches = mutableListOf<String>()
 
-        for(i in 0..buffer.readVarInt() - 1) {
+        for(i in 0 until buffer.readVarInt()) {
             matches.add(buffer.readString())
         }
 

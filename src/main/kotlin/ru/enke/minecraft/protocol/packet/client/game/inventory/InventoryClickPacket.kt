@@ -3,7 +3,7 @@ package ru.enke.minecraft.protocol.packet.client.game.inventory
 import io.netty.buffer.ByteBuf
 import ru.enke.minecraft.protocol.packet.Packet
 import ru.enke.minecraft.protocol.packet.PacketMessage
-import ru.enke.minecraft.protocol.packet.data.game.Slot
+import ru.enke.minecraft.protocol.packet.data.game.ItemStack
 import ru.enke.minecraft.protocol.packet.readSlot
 import ru.enke.minecraft.protocol.packet.writeSlot
 
@@ -15,7 +15,7 @@ object InventoryClickPacket : Packet<InventoryClick> {
         buffer.writeByte(message.button)
         buffer.writeShort(message.transaction)
         buffer.writeByte(message.mode)
-        buffer.writeSlot(message.slot)
+        buffer.writeSlot(message.itemStack)
     }
 
     override fun read(buffer: ByteBuf): InventoryClick {
@@ -32,4 +32,4 @@ object InventoryClickPacket : Packet<InventoryClick> {
 }
 
 data class InventoryClick(val windowId: Int, val slotIndex: Int, val button: Int, val transaction: Int,
-                          val mode: Int, val slot: Slot?) : PacketMessage
+                          val mode: Int, val itemStack: ItemStack?) : PacketMessage

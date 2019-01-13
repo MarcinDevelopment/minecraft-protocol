@@ -18,10 +18,11 @@ import ru.enke.minecraft.protocol.packet.server.game.chunk.ChunkUnload
 import ru.enke.minecraft.protocol.packet.server.game.chunk.ChunkUnloadPacket
 import ru.enke.minecraft.protocol.packet.server.game.entity.*
 import ru.enke.minecraft.protocol.packet.server.game.inventory.*
-import ru.enke.minecraft.protocol.packet.server.game.player.ServerPlayerAbilities
-import ru.enke.minecraft.protocol.packet.server.game.player.ServerPlayerAbilitiesPacket
-import ru.enke.minecraft.protocol.packet.server.game.player.ServerPlayerPositionAndLookPacket
-import ru.enke.minecraft.protocol.packet.server.game.player.ServerPlayerPositionLook
+import ru.enke.minecraft.protocol.packet.server.game.location.EntityLook
+import ru.enke.minecraft.protocol.packet.server.game.location.EntityLookAndRelativeMove
+import ru.enke.minecraft.protocol.packet.server.game.location.EntityLookAndRelativeMovePacket
+import ru.enke.minecraft.protocol.packet.server.game.location.EntityLookPacket
+import ru.enke.minecraft.protocol.packet.server.game.player.*
 
 open class GameProtocol(direction: PacketDirection, direction2: PacketDirection) : SimpleProtocol() {
     init {
@@ -60,6 +61,7 @@ open class GameProtocol(direction: PacketDirection, direction2: PacketDirection)
         registerPacket(direction, 0x20, UseItemPacket, UseItem::class)
 
         registerPacket(direction2, 0x00, SpawnObjectPacket, SpawnObject::class)
+        registerPacket(direction2, 0x00, SpawnObjectPacket, SpawnObject::class)
         registerPacket(direction2, 0x01, SpawnExpOrbPacket, SpawnExpOrb::class)
         registerPacket(direction2, 0x02, SpawnGlobalEntityPacket, SpawnGlobalEntity::class)
         registerPacket(direction2, 0x03, SpawnMobPacket, SpawnMob::class)
@@ -78,8 +80,7 @@ open class GameProtocol(direction: PacketDirection, direction2: PacketDirection)
         registerPacket(direction2, 0x10, MultiBlockChangePacket, MultiBlockChange::class)
         registerPacket(direction2, 0x12, ServerInventoryClosePacket, ServerInventoryClose::class)
         registerPacket(direction2, 0x13, InventoryOpenPacket, InventoryOpen::class)
-        //TODO: Fix NBT read.
-        //registerPacket(direction2, 0x14, InventoryItemsPacket, InventoryItems::class)
+        registerPacket(direction2, 0x14, InventoryItemsPacket, InventoryItems::class)
         registerPacket(direction2, 0x15, InventoryPropertyPacket, InventoryProperty::class)
         registerPacket(direction2, 0x16, InventorySetSlotPacket, InventorySetSlot::class)
         registerPacket(direction2, 0x17, SetCooldownPacket, SetCooldown::class)
@@ -100,6 +101,13 @@ open class GameProtocol(direction: PacketDirection, direction2: PacketDirection)
         registerPacket(direction2, 0x46, SpawnPositionPacket, SpawnPosition::class)
         registerPacket(direction2, 0x47, TimeUpdatePacket, TimeUpdate::class)
         registerPacket(direction2, 0x48, TitlePacket, Title::class)
+        registerPacket(direction2, 0x41, UpdateHealthPacket, UpdateHealth::class)
+        registerPacket(direction2, 0x4A, ServerPlayerListDataPacket, PlayerListData::class)
+        registerPacket(direction2, 0x2E, ServerPlayerListEntryPacket, PlayerListEntry::class) //TODO: finish it
+        registerPacket(direction2, 0x27, EntityLookAndRelativeMovePacket, EntityLookAndRelativeMove::class)
+        registerPacket(direction2, 0x28, EntityLookPacket, EntityLook::class)
+        registerPacket(direction2, 0x40, setExperiencePacket, setExperience::class)
+        registerPacket(direction2, 0x1E, ServerChangeGameStatePacket, ChangeGameState::class)
     }
 }
 
