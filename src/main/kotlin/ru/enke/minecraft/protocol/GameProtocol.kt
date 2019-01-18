@@ -61,7 +61,6 @@ open class GameProtocol(direction: PacketDirection, direction2: PacketDirection)
         registerPacket(direction, 0x20, UseItemPacket, UseItem::class)
 
         registerPacket(direction2, 0x00, SpawnObjectPacket, SpawnObject::class)
-        registerPacket(direction2, 0x00, SpawnObjectPacket, SpawnObject::class)
         registerPacket(direction2, 0x01, SpawnExpOrbPacket, SpawnExpOrb::class)
         registerPacket(direction2, 0x02, SpawnGlobalEntityPacket, SpawnGlobalEntity::class)
         registerPacket(direction2, 0x03, SpawnMobPacket, SpawnMob::class)
